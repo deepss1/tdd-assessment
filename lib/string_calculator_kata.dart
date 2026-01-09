@@ -17,20 +17,28 @@ class StringCalculator {
   }
 
   List<int> _parse(String numbers) {
-    String delimiter = ',';
     String content = numbers;
+    String delimiter = ',';
 
-    // Check for custom delimiters
     if (numbers.startsWith("//")) {
       final parts = numbers.split('\n');
+      String definition = parts[0].substring(2);
 
-      delimiter = parts[0].substring(2);
+      if (definition.startsWith('[') && definition.endsWith(']')) {
+        delimiter = definition.substring(1, definition.length - 1);
+      } else {
+        delimiter = definition;
+      }
 
       content = parts.sublist(1).join('\n');
     }
 
-    content = content.replaceAll('\n', delimiter);
+    final pattern = RegExp('${RegExp.escape(delimiter)}|\n');
 
-    return content.split(delimiter).map(int.parse).toList();
+    return content
+        .split(pattern)
+        .where((s) => s.isNotEmpty)
+        .map(int.parse)
+        .toList();
   }
 }
