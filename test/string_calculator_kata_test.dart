@@ -63,5 +63,9 @@ void main() {
     test('should support multiple delimiters', () {
       expect(calculator.add("//[*][%]\n1*2%3"), 6);
     });
+
+    test('should ignore numbers greater than 1000', () {
+      expect(calculator.add("2,1001"), 2);
+    });
   });
 }
