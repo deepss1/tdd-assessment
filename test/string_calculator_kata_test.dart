@@ -59,5 +59,9 @@ void main() {
     test('should support multi-character delimiters enclosed in brackets', () {
       expect(calculator.add("//[***]\n1***2***3"), 6);
     });
+
+    test('should support multiple delimiters', () {
+      expect(calculator.add("//[*][%]\n1*2%3"), 6);
+    });
   });
 }
