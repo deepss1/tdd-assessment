@@ -75,5 +75,9 @@ void main() {
     test('should support multiple multi-character delimiters', () {
       expect(calculator.add("//[foo][bar]\n1foo2bar3"), 6);
     });
+
+    test('should ignore empty parts caused by consecutive delimiters', () {
+      expect(calculator.add("1,,2"), 3);
+    });
   });
 }
