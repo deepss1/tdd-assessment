@@ -18,25 +18,32 @@ class StringCalculator {
 
   List<int> _parse(String numbers) {
     String content = numbers;
-    String delimiter = ',';
+    String delimiterPatternString = ',';
 
     if (numbers.startsWith("//")) {
       final parts = numbers.split('\n');
       String definition = parts[0].substring(2);
 
-      if (definition.startsWith('[') && definition.endsWith(']')) {
-        delimiter = definition.substring(1, definition.length - 1);
+      if (definition.startsWith('[')) {
+        final buffer = StringBuffer();
+        final matches = RegExp(r'\[(.*?)\]').allMatches(definition);
+
+        for (final match in matches) {
+          if (buffer.isNotEmpty) buffer.write('|');
+          buffer.write(RegExp.escape(match.group(1)!));
+        }
+        delimiterPatternString = buffer.toString();
       } else {
-        delimiter = definition;
+        delimiterPatternString = RegExp.escape(definition);
       }
 
       content = parts.sublist(1).join('\n');
     }
 
-    final pattern = RegExp('${RegExp.escape(delimiter)}|\n');
+    final fullPattern = RegExp('$delimiterPatternString|\n');
 
     return content
-        .split(pattern)
+        .split(fullPattern)
         .where((s) => s.isNotEmpty)
         .map(int.parse)
         .toList();
