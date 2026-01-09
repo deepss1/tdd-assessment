@@ -83,5 +83,9 @@ void main() {
     test('should ignore trailing delimiters', () {
       expect(calculator.add("1,2,"), 3);
     });
+
+    test('throws exception for invalid input', () {
+      expect(() => calculator.add('1,a,3'), throwsA(isA<FormatException>()));
+    });
   });
 }
