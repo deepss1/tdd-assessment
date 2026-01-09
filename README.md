@@ -47,6 +47,9 @@ dart test
 dart test -r expanded
 ```
 
+## ✅ Test Results
+![Test Results](screenshots\test_results.png)
+
 ## 📂 Project Structure
 
 ```
