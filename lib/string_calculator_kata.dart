@@ -2,11 +2,6 @@ class StringCalculator {
   int add(String numbers) {
     if (numbers.isEmpty) return 0;
 
-    if (numbers.contains(',')) {
-      var parts = numbers.split(',');
-      return int.parse(parts[0]) + int.parse(parts[1]);
-    }
-
-    return int.parse(numbers);
+    return numbers.split(',').map(int.parse).reduce((a, b) => a + b);
   }
 }
