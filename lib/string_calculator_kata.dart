@@ -2,6 +2,21 @@ class StringCalculator {
   int add(String numbers) {
     if (numbers.isEmpty) return 0;
 
+    List<int> numberList = _parse(numbers);
+
+    _checkNegatives(numberList);
+
+    return numberList.reduce((a, b) => a + b);
+  }
+
+  void _checkNegatives(List<int> numbers) {
+    final negatives = numbers.where((n) => n < 0).toList();
+    if (negatives.isNotEmpty) {
+      throw Exception("negative numbers not allowed ${negatives.join(', ')}");
+    }
+  }
+
+  List<int> _parse(String numbers) {
     String delimiter = ',';
     String content = numbers;
 
@@ -16,17 +31,6 @@ class StringCalculator {
 
     content = content.replaceAll('\n', delimiter);
 
-    List<int> numberList = content.split(delimiter).map(int.parse).toList();
-
-    _checkNegatives(numberList);
-
-    return numberList.reduce((a, b) => a + b);
-  }
-
-  void _checkNegatives(List<int> numbers) {
-    final negatives = numbers.where((n) => n < 0).toList();
-    if (negatives.isNotEmpty) {
-      throw Exception("negative numbers not allowed ${negatives.join(', ')}");
-    }
+    return content.split(delimiter).map(int.parse).toList();
   }
 }
