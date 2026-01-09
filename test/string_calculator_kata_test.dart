@@ -67,5 +67,9 @@ void main() {
     test('should ignore numbers greater than 1000', () {
       expect(calculator.add("2,1001"), 2);
     });
+
+    test('should include 1000 but ignore 1001 (Boundary Check)', () {
+      expect(calculator.add("1000,1001,5"), 1005);
+    });
   });
 }
