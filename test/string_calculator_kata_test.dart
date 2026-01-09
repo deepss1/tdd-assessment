@@ -79,5 +79,9 @@ void main() {
     test('should ignore empty parts caused by consecutive delimiters', () {
       expect(calculator.add("1,,2"), 3);
     });
+
+    test('should ignore trailing delimiters', () {
+      expect(calculator.add("1,2,"), 3);
+    });
   });
 }
