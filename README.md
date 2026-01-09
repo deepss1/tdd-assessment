@@ -22,6 +22,24 @@ This calculator handles complex string parsing scenarios including:
   - Ignores numbers > 1000.
   - Throws informative exceptions for negative numbers, listing all offenders.
 
+| # | Feature | Example | Output | Status |
+|---|---------|---------|--------|--------|
+| 1 | Empty String | `add("")` | `0` | ✅ |
+| 2 | Single Number | `add("1")` | `1` | ✅ |
+| 3 | Multiple Numbers | `add("1,2,3")` | `6` | ✅ |
+| 4 | Newline Delimiter | `add("1\n2,3")` | `6` | ✅ |
+| 5 | Custom Delimiter | `add("//;\n1;2")` | `3` | ✅ |
+| 6 | Negative Exception | `add("-1,2")` | Exception | ✅ |
+| 7 | All Negatives Listed | `add("-1,-2")` | Exception: -1, -2 | ✅ |
+| 8 | Ignore > 1000 | `add("2,1001")` | `2` | ✅ |
+| 9 | Multi-char Delimiter | `add("//[***]\n1***2")` | `3` | ✅ |
+| 10 | Multiple Delimiters | `add("//[*][%]\n1*2%3")` | `6` | ✅ |
+| 11 | Multi-char Multiple | `add("//[foo][bar]\n1foo2bar3")` | `6` | ✅ |
+| 12 | Consecutive Delimiters | `add("1,,2")` | `3` | ✅ |
+| 13 | Trailing Delimiters | `add("1,2,")` | `3` | ✅ |
+| 14 | Boundary (1000) | `add("1000,1001,5")` | `1005` | ✅ |
+| 15 | Invalid Input | `add("1,a,3")` | Exception | ✅ |
+
 ## 🛠️ Technical Approach
 
 This project was built using the **Red-Green-Refactor** cycle. 
