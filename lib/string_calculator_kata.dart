@@ -46,6 +46,7 @@ class StringCalculator {
         .split(fullPattern)
         .where((s) => s.isNotEmpty)
         .map(int.parse)
+        .where((n) => n <= 1000)
         .toList();
   }
 }
