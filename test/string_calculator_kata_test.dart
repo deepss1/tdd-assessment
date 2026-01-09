@@ -71,5 +71,9 @@ void main() {
     test('should include 1000 but ignore 1001 (Boundary Check)', () {
       expect(calculator.add("1000,1001,5"), 1005);
     });
+
+    test('should support multiple multi-character delimiters', () {
+      expect(calculator.add("//[foo][bar]\n1foo2bar3"), 6);
+    });
   });
 }
